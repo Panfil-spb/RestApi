@@ -3,6 +3,8 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" th:content="${_csrf.token}">
+    <meta name="csrf-header" th:content="${_csrf.headerName}">
     <title>User page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!--    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>-->
@@ -13,7 +15,8 @@
 
 <nav class="navbar navbar-dark bg-dark text-white">
     <div class="container-fluid">
-                <div class="navbar-header">
+                <div class="navbar-header" id="user-panel">
+
                     <h5 th:text="${user.name} + ' with roles: ' + ${user.getStringRoles()}"/>
                 </div>
         <div class="nav navbar-nav navbar-right">
@@ -61,14 +64,8 @@
                                     <th>Role</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td th:text="${user.getId()}"/>
-                                    <td th:text="${user.getName()}"/>
-                                    <td th:text="${user.getLast_name()}"/>
-                                    <td th:text="${user.getEmail()}"/>
-                                    <td th:text="${user.getStringRoles()}"/>
-                                </tr>
+                                <tbody id="user-data">
+
                                 </tbody>
                             </table>
                         </div>
@@ -78,28 +75,6 @@
         </div>
     </div>
 </div>
-
-
-<!--<div>-->
-<!--    <table>-->
-<!--        <tr>-->
-<!--            <th>Id</th>-->
-<!--            <th>Имя</th>-->
-<!--            <th>Фамилия</th>-->
-<!--            <th>Почтовый ящик</th>-->
-<!--            <th>Пароль</th>-->
-
-<!--        </tr>-->
-
-<!--        <tr>-->
-<!--            <td th:text="${user.getId()}">Id</td>-->
-<!--            <td th:text="${user.getName()}">Имя</td>-->
-<!--            <td th:text="${user.getLast_name()}">Фамилия</td>-->
-<!--            <td th:text="${user.getEmail()}">Почтовый ящик</td>-->
-<!--            <td th:text="${user.getPassword()}">Пароль</td>-->
-<!--        </tr>-->
-<!--    </table>-->
-<!--</div>-->
-
+<script type="text/javascript" src="/user.js"></script>
 </body>
 </html>

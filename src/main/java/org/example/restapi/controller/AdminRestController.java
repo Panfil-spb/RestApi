@@ -41,9 +41,8 @@ public class AdminRestController {
 
     @PostMapping("/users")
     public ResponseEntity<User> createNewUser(@RequestBody User user) {
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(user);
-        System.out.println("?????????????????????????");
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(user.getStringRoles());
         userService.addNewUserFromForm(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

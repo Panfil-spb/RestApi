@@ -2,6 +2,9 @@
 
 const urlAuthInfo = 'http://localhost:8080/api/admin/auth';
 const panel = document.getElementById('admin-panel');
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+const csrfHeader = document.querySelector('meta[name="csrf-header"]').content;
+
 
 function userLineInfo() {
     fetch(urlAuthInfo)
@@ -77,9 +80,8 @@ function editModal(id) {
             document.getElementById('idEdit').value = us.id;
             document.getElementById('firstnameEdit').value = us.name;
             document.getElementById('lastnameEdit').value = us.last_name;
-            ;
             document.getElementById('emailEdit').value = us.email;
-            document.getElementById('passwordEdit').value = us.password;
+            // document.getElementById('passwordEdit').value = us.password;
 
         })
     });
@@ -91,12 +93,12 @@ async function editUser() {
     let surnameValue = document.getElementById("lastnameEdit").value;
     let emailValue = document.getElementById("emailEdit").value;
     let passwordValue = document.getElementById("passwordEdit").value;
-    let roles = getRoles(Array.from(document.getElementById("rolesEdit").selectedOptions).map(role => role.value));
+    let roles = getRoles(Array.from(document.getElementById('rolesEdit').selectedOptions).map(role => role.value));
 
     let user = {
         id: idValue,
         name: nameValue,
-        surname: surnameValue,
+        last_name: surnameValue,
         email: emailValue,
         password: passwordValue,
         roles: roles
@@ -106,10 +108,15 @@ async function editUser() {
         method: "PUT",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': 'application/json;charset=UTF-8',
+            [csrfHeader]: csrfToken
+
         },
         body: JSON.stringify(user)
     });
+
+    getAllUsers()
+    document.getElementById("editCloseButton").click();
 }
 
 function deleteModal(id) {
@@ -124,25 +131,23 @@ function deleteModal(id) {
             document.getElementById('idDelete').value = us.id;
             document.getElementById('firstnameDelete').value = us.name;
             document.getElementById('lastnameDelete').value = us.last_name;
-            ;
             document.getElementById('emailDelete').value = us.email;
-            document.getElementById('passwordDelete').value = us.password;
-
         })
     });
 }
 
 async function deleteUser() {
-    await fetch(url + document.getElementById('idDelete').value, {
+    await fetch(url + "/" + document.getElementById('idDelete').value, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': 'application/json;charset=UTF-8',
+            [csrfHeader]: csrfToken
         },
     })
 
     getAllUsers()
-    document.getElementById("deleteButton").click();
+    document.getElementById("deleteCloseButton").click();
 }
 
 const addForm = document.getElementById('add-form');
@@ -157,8 +162,11 @@ function addUser(event) {
     let lastName = document.getElementById('lastnameAdd').value;
     let emailValue = document.getElementById('emailAdd').value;
     let passwordValue = document.getElementById('passwordAdd').value;
-    let roles = getRoles(Array.from(document.getElementById('rolesAdd').selectedOptions).map(role => role.value));
 
+    let roles = getRoles(Array.from(document.getElementById('rolesAdd').selectedOptions).map(role => role.value));
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    console.log(roles);
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
     let newUser = {
         name: nameValue,
@@ -172,7 +180,8 @@ function addUser(event) {
         method: "POST",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': 'application/json;charset=UTF-8',
+            [csrfHeader]: csrfToken
         },
         body: JSON.stringify(newUser)
     })
@@ -184,11 +193,19 @@ function addUser(event) {
 
 function getRoles(rols) {
     let roles = [];
+    console.log("Список выбранных jptons")
+    console.log(rols);
     if (rols.indexOf("ADMIN") >= 0) {
-        roles.push(1);
+        roles.push({
+            "id": 1,
+            "name": "ROLE_ADMIN"
+        });
     }
     if (rols.indexOf("USER") >= 0) {
-        roles.push(2);
+        roles.push({
+            "id": 2,
+            "name": "ROLE_USER"
+        });
     }
     return roles;
 }
