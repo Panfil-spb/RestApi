@@ -7,26 +7,18 @@ const csrfHeader = document.querySelector('meta[name="csrf-header"]').content;
 function userLineInfo() {
     fetch(urlAuthInfo)
         .then(response => {
-            // Проверяем успешность HTTP-ответа
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-
-            // Получаем содержимое ответа как текст
             return response.text();
         })
         .then(data => {
-            // Обрабатываем текстовый ответ
-            console.log('Response data:', data); // Отладочная информация
             if (!data) {
                 throw new Error('Server returned empty response.');
             }
-
-            // Вставляем данные в панель
             panel.innerHTML = `<p><strong>User Info:</strong> ${data}</p>`;
         })
         .catch(error => {
-            // Обрабатываем ошибки
             console.error('Error fetching user info:', error);
             panel.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
         });

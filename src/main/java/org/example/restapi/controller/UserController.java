@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -19,7 +17,7 @@ public class UserController {
     @GetMapping("/")
     public String showUserInfo(Model modelMap) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        modelMap.addAttribute("user",  ((UserDetailsImp) authentication.getPrincipal()).getUser());
+        modelMap.addAttribute("user", ((UserDetailsImp) authentication.getPrincipal()).getUser());
         return "user/user";
     }
 

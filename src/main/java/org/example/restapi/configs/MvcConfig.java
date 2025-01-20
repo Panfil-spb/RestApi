@@ -12,9 +12,9 @@ public class MvcConfig implements WebMvcConfigurer {
     }
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // Для всех маршрутов
-                .allowedOrigins("http://localhost:8080") // Или домен фронтенда
-                .allowedMethods("GET", "POST", "PUT", "DELETE") // Доступные методы
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:8080")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*"); // Заголовки
     }
 

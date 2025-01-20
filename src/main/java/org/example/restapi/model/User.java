@@ -36,7 +36,6 @@ public class User {
     @NotEmpty(message = "Поле 'Пароль' не может быть пустым")
     private String password;
 
-    // Новое поле для хранения ролей
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "userroles",

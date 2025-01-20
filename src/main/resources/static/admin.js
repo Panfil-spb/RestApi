@@ -9,26 +9,18 @@ const csrfHeader = document.querySelector('meta[name="csrf-header"]').content;
 function userLineInfo() {
     fetch(urlAuthInfo)
         .then(response => {
-            // Проверяем успешность HTTP-ответа
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-
-            // Получаем содержимое ответа как текст
             return response.text();
         })
         .then(data => {
-            // Обрабатываем текстовый ответ
-            console.log('Response data:', data); // Отладочная информация
             if (!data) {
                 throw new Error('Server returned empty response.');
             }
-
-            // Вставляем данные в панель
             panel.innerHTML = `<p><strong>User Info:</strong> ${data}</p>`;
         })
         .catch(error => {
-            // Обрабатываем ошибки
             console.error('Error fetching user info:', error);
             panel.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
         });
@@ -37,7 +29,7 @@ function userLineInfo() {
 userLineInfo();
 
 
-const url = 'http://localhost:8080/api/admin/users';
+const url = 'http://localhost:8080/api/admin';
 
 function getAllUsers() {
     fetch(url)
@@ -66,7 +58,7 @@ function getAllUsers() {
 
 getAllUsers();
 
-const urlGetUser = 'http://localhost:8080/api/admin/users/';
+const urlGetUser = 'http://localhost:8080/api/admin/';
 
 function editModal(id) {
     fetch(urlGetUser + id, {
@@ -76,13 +68,10 @@ function editModal(id) {
         }
     }).then(res => {
         res.json().then(us => {
-
             document.getElementById('idEdit').value = us.id;
             document.getElementById('firstnameEdit').value = us.name;
             document.getElementById('lastnameEdit').value = us.last_name;
             document.getElementById('emailEdit').value = us.email;
-            // document.getElementById('passwordEdit').value = us.password;
-
         })
     });
 }
@@ -164,9 +153,7 @@ function addUser(event) {
     let passwordValue = document.getElementById('passwordAdd').value;
 
     let roles = getRoles(Array.from(document.getElementById('rolesAdd').selectedOptions).map(role => role.value));
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    console.log(roles);
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
 
     let newUser = {
         name: nameValue,
@@ -193,8 +180,6 @@ function addUser(event) {
 
 function getRoles(rols) {
     let roles = [];
-    console.log("Список выбранных jptons")
-    console.log(rols);
     if (rols.indexOf("ADMIN") >= 0) {
         roles.push({
             "id": 1,

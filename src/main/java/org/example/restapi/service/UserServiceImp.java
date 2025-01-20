@@ -11,17 +11,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+
 public class UserServiceImp implements UserService {
 
 
     private final UsersRepository usersRepository;
-    private RoleService roleService;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -32,6 +33,7 @@ public class UserServiceImp implements UserService {
         this.usersRepository = usersRepository;
     }
 
+    @Transactional
     @Override
     public void addNewUserFromForm(User user) {
         Set<Role> roles = user.getRoles().stream()
@@ -43,17 +45,20 @@ public class UserServiceImp implements UserService {
         addUser(user);
     }
 
+    @Transactional
     @Override
     public void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         usersRepository.save(user);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long id) {
         usersRepository.delete(usersRepository.getUserById(id));
     }
 
+    @Transactional
     @Override
     public void editUser(User user) {
         System.out.println(user);
