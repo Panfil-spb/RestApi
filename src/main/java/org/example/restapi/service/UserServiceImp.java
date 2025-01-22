@@ -19,12 +19,9 @@ import java.util.stream.Collectors;
 @Service
 
 public class UserServiceImp implements UserService {
-
-
     private final UsersRepository usersRepository;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
-
 
     @Autowired
     public UserServiceImp(RoleService roleServiceImp, PasswordEncoder passwordEncoder, UsersRepository usersRepository) {
