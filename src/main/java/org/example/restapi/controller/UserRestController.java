@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8080") // Укажите свой фронтенд-домен!
-@RequestMapping
+@RequestMapping("user/")
 public class UserRestController {
     private final UserService userService;
 
@@ -24,19 +24,19 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping("user/")
-    public ModelAndView showUserInfo(Model modelMap) {
+    @GetMapping
+    public ModelAndView showUserPage(Model modelMap) {
         return new ModelAndView("user/user");
     }
 
     @GetMapping("api/user/auth")
-    public ResponseEntity<String> getAuthUserInfo() {
+    public ResponseEntity<String> getAuthUserInfoForUserPanel() {
         User authUser = userService.getAuthUser();
         return new ResponseEntity<>(authUser.getName() + " with  roles: " + authUser.getStringRoles(), HttpStatus.OK);
     }
 
     @GetMapping("api/user")
-    public User getUser() {
+    public User getUserInfoForUserTable() {
         return userService.getAuthUser();
     }
 }

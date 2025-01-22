@@ -1,7 +1,6 @@
 package org.example.restapi.controller;
 
 import org.example.restapi.model.User;
-import org.example.restapi.service.RoleServiceImp;
 import org.example.restapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +16,10 @@ import java.util.List;
 @RequestMapping("")
 public class AdminRestController {
     private final UserService userService;
-    private final RoleServiceImp roleService;
 
     @Autowired
-    public AdminRestController(UserService userService, RoleServiceImp roleService) {
+    public AdminRestController(UserService userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     @GetMapping("/admin")

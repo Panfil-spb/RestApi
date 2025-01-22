@@ -1,4 +1,4 @@
-const urlAuthInfo = 'http://localhost:8080/api/user/auth';
+const urlAuthInfo = 'http://localhost:8080/user/api/user/auth';
 const panel = document.getElementById('user-panel');
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 const csrfHeader = document.querySelector('meta[name="csrf-header"]').content;
@@ -25,7 +25,7 @@ function userLineInfo() {
 }
 
 
-const url = 'http://localhost:8080/api/user';
+const url = 'http://localhost:8080/user/api/user';
 
 function getUserTable() {
     fetch(url)
