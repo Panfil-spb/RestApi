@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping("")
+@RequestMapping("admin/")
 public class AdminRestController {
     private final UserService userService;
 
@@ -22,39 +22,41 @@ public class AdminRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping
     public ModelAndView showAdminPanel(ModelMap modelMap) {
         return new ModelAndView("admin/admin");
     }
 
-    @GetMapping("api/admin/auth")
+    @GetMapping("admin/api/admin/auth")
     public ResponseEntity<String> getAuthUserInfo() {
         User authUser = userService.getAuthUser();
         return new ResponseEntity<>(authUser.getName() + " with  roles: " + authUser.getStringRoles(), HttpStatus.OK);
     }
 
-    @GetMapping("api/admin")
+    @GetMapping("admin/api/admin")
     public List<User> getUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping("api/admin/{id}")
+    @GetMapping("admin/api/admin/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+        User user = userService.getUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("api/admin")
+    @PostMapping("admin/api/admin")
     public ResponseEntity<User> createNewUser(@RequestBody User user) {
         userService.addNewUserFromForm(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("api/admin")
-    public void updateUser(@RequestBody User user) {
+    @PutMapping("admin/api/admin")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
         userService.editUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("api/admin/{id}")
+    @DeleteMapping("admin/api/admin/{id}")
     public ResponseEntity<User> deleteUserById(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);

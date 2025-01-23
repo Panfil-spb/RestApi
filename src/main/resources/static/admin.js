@@ -1,6 +1,6 @@
 //функция для вывода информации авторизованного пользователя
 
-const urlAuthInfo = 'http://localhost:8080/api/admin/auth';
+const urlAuthInfo = 'http://localhost:8080/admin/api/admin/auth';
 const panel = document.getElementById('admin-panel');
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 const csrfHeader = document.querySelector('meta[name="csrf-header"]').content;
@@ -29,7 +29,7 @@ function userLineInfo() {
 userLineInfo();
 
 
-const url = 'http://localhost:8080/api/admin';
+const url = 'http://localhost:8080/admin/api/admin';
 
 function getAllUsers() {
     fetch(url)
@@ -58,7 +58,7 @@ function getAllUsers() {
 
 getAllUsers();
 
-const urlGetUser = 'http://localhost:8080/api/admin/';
+const urlGetUser = 'http://localhost:8080/admin/api/admin/';
 
 function editModal(id) {
     fetch(urlGetUser + id, {
@@ -162,7 +162,7 @@ function addUser(event) {
         password: passwordValue,
         roles: roles
     }
-    const url = 'http://localhost:8080/api/admin/users';
+    const url = 'http://localhost:8080/admin/api/admin/users';
     fetch(url, {
         method: "POST",
         headers: {

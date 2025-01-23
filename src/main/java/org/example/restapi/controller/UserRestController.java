@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080") // Укажите свой фронтенд-домен!
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("user/")
 public class UserRestController {
     private final UserService userService;
