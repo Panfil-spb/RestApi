@@ -27,37 +27,37 @@ public class AdminRestController {
         return new ModelAndView("admin/admin");
     }
 
-    @GetMapping("admin/api/admin/auth")
+    @GetMapping("api/admin/auth")
     public ResponseEntity<String> getAuthUserInfo() {
         User authUser = userService.getAuthUser();
         return new ResponseEntity<>(authUser.getName() + " with  roles: " + authUser.getStringRoles(), HttpStatus.OK);
     }
 
-    @GetMapping("admin/api/admin")
+    @GetMapping("api/get_users")
     public List<User> getUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping("admin/api/admin/{id}")
+    @GetMapping("api/get_user/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("admin/api/admin")
-    public ResponseEntity<User> createNewUser(@RequestBody User user) {
+    @PostMapping("api/add_user")
+    public ResponseEntity<Void> createNewUser(@RequestBody User user) {
         userService.addNewUserFromForm(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("admin/api/admin")
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
+    @PutMapping("api/update_user")
+    public ResponseEntity<Void> updateUser(@RequestBody User user) {
         userService.editUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("admin/api/admin/{id}")
-    public ResponseEntity<User> deleteUserById(@PathVariable Long id) {
+    @DeleteMapping("api/delete_user/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -29,7 +29,7 @@ function userLineInfo() {
 userLineInfo();
 
 
-const url = 'http://localhost:8080/admin/api/admin';
+const url = 'http://localhost:8080/admin/api/get_users';
 
 function getAllUsers() {
     fetch(url)
@@ -58,7 +58,7 @@ function getAllUsers() {
 
 getAllUsers();
 
-const urlGetUser = 'http://localhost:8080/admin/api/admin/';
+const urlGetUser = 'http://localhost:8080/admin/api/get_user/';
 
 function editModal(id) {
     fetch(urlGetUser + id, {
@@ -76,6 +76,8 @@ function editModal(id) {
     });
 }
 
+
+const urlEditUser = 'http://localhost:8080/admin/api/update_user/';
 async function editUser() {
     let idValue = document.getElementById("idEdit").value;
     let nameValue = document.getElementById("firstnameEdit").value;
@@ -93,7 +95,7 @@ async function editUser() {
         roles: roles
     }
 
-    await fetch(url, {
+    await fetch(urlEditUser, {
         method: "PUT",
         headers: {
             'Accept': 'application/json',
@@ -125,6 +127,7 @@ function deleteModal(id) {
     });
 }
 
+const urlDeleteUser = 'http://localhost:8080/admin/api/delete_user/';
 async function deleteUser() {
     await fetch(url + "/" + document.getElementById('idDelete').value, {
         method: 'DELETE',
@@ -162,7 +165,7 @@ function addUser(event) {
         password: passwordValue,
         roles: roles
     }
-    const url = 'http://localhost:8080/admin/api/admin/users';
+    const url = 'http://localhost:8080/admin/api/add_user';
     fetch(url, {
         method: "POST",
         headers: {
