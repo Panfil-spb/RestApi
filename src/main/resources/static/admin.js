@@ -1,6 +1,6 @@
 //функция для вывода информации авторизованного пользователя
 
-const urlAuthInfo = 'http://localhost:8080/admin/api/admin/auth';
+const urlAuthInfo = 'http://localhost:8080/admin/auth';
 const panel = document.getElementById('admin-panel');
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 const csrfHeader = document.querySelector('meta[name="csrf-header"]').content;
@@ -29,7 +29,7 @@ function userLineInfo() {
 userLineInfo();
 
 
-const url = 'http://localhost:8080/admin/api/get_users';
+const url = 'http://localhost:8080/admin/get_users';
 
 function getAllUsers() {
     fetch(url)
@@ -58,7 +58,7 @@ function getAllUsers() {
 
 getAllUsers();
 
-const urlGetUser = 'http://localhost:8080/admin/api/get_user/';
+const urlGetUser = 'http://localhost:8080/admin/get_user/';
 
 function editModal(id) {
     fetch(urlGetUser + id, {
@@ -77,7 +77,7 @@ function editModal(id) {
 }
 
 
-const urlEditUser = 'http://localhost:8080/admin/api/update_user/';
+const urlEditUser = 'http://localhost:8080/admin/update_user/';
 async function editUser() {
     let idValue = document.getElementById("idEdit").value;
     let nameValue = document.getElementById("firstnameEdit").value;
@@ -127,9 +127,9 @@ function deleteModal(id) {
     });
 }
 
-const urlDeleteUser = 'http://localhost:8080/admin/api/delete_user/';
+const urlDeleteUser = 'http://localhost:8080/admin/delete_user';
 async function deleteUser() {
-    await fetch(url + "/" + document.getElementById('idDelete').value, {
+    await fetch(urlDeleteUser + "/" + document.getElementById('idDelete').value, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
@@ -165,7 +165,7 @@ function addUser(event) {
         password: passwordValue,
         roles: roles
     }
-    const url = 'http://localhost:8080/admin/api/add_user';
+    const url = 'http://localhost:8080/admin/add_user';
     fetch(url, {
         method: "POST",
         headers: {

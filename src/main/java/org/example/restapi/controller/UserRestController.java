@@ -29,13 +29,13 @@ public class UserRestController {
         return new ModelAndView("user/user");
     }
 
-    @GetMapping("api/user/auth")
+    @GetMapping("/auth")
     public ResponseEntity<String> getAuthUserInfoForUserPanel() {
         User authUser = userService.getAuthUser();
         return new ResponseEntity<>(authUser.getName() + " with  roles: " + authUser.getStringRoles(), HttpStatus.OK);
     }
 
-    @GetMapping("api/user")
+    @GetMapping("/table_info")
     public User getUserInfoForUserTable() {
         return userService.getAuthUser();
     }
