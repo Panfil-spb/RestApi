@@ -28,6 +28,10 @@ public class UserServiceImp implements UserService {
         this.roleService = roleServiceImp;
         this.passwordEncoder = passwordEncoder;
         this.usersRepository = usersRepository;
+
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(passwordEncoder.encode("test"));
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     @Transactional
